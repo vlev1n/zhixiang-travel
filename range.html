@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style media="screen">
+      #options-div {
+        display: grid;
+        grid-auto-flow: column;
+        justify-items: center;
+      }
+
+      #options-div > span:first-child {
+        justify-self: start;
+      }
+
+      #options-div > span:last-child {
+        justify-self: end;
+      }
+
+      input {
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="range" name="" value="0" id="range">
+    <div id="options-div"></div>
+    <script type="text/javascript">
+      const options = ['不限', '1k', '2k', '3k', '4k', '5k', '1w', '2w+']
+      const range = document.getElementById('range')
+      const optionsDiv = document.getElementById('options-div')
+      range.max = options.length - 1
+
+      for (let option of options) {
+        // console.log(option)
+        let span = document.createElement('span')
+        span.innerText = option
+        optionsDiv.appendChild(span)
+      }
+    </script>
+  </body>
+</html>

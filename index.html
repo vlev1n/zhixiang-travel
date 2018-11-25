@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/fontello.css">
+  </head>
+  <body>
+    <!-- 永恒可见的元素，放在#root内，避免浏览器插件影响 -->
+    <div id="root">
+      <header>
+        <span class="icon-left-open"></span>
+        <h1>新的行程</h1>
+        <span class="icon-ellipsis"></span>
+      </header>
+      <main>
+        <h2 class="icon-location">目的地</h2>
+        <button name="destination">目的地</button>
+        <h2 class="icon-calendar-empty">时间</h2>
+        <button name="departure-time">时间</button>
+        <h2 class="icon-tag">标签</h2>
+        <button name="tag">标签</button>
+        <h2 class="icon-group">人数</h2>
+        <input type="number" name="num-of-people" value="" placeholder="人数">
+      </main>
+      <input type="range" name="" value="0">
+      <button id="customize" name="button">立即定制</button>
+    </div>
+    <!-- 空DIV作为黑幕，且写在弹框之前 -->
+    <div id="mask"></div>
+    <div class="destination options" data-status="closed">
+      <input type="radio" name="目的地" value="" id="北京">
+      <label for="北京">北京</label>
+      <input type="radio" name="目的地" value="" id="上海">
+      <label for="上海">上海</label>
+      <input type="radio" name="目的地" value="" id="广州">
+      <label for="广州">广州</label>
+      <button name="" class="confirm-panel">确认</button>
+    </div>
+    <div class="departure-time options" data-status="closed">
+      <input type="radio" name="时间" value="" id="今天">
+      <label for="今天">今天</label>
+      <input type="radio" name="时间" value="" id="明天">
+      <label for="明天">明天</label>
+      <input type="radio" name="时间" value="" id="后天">
+      <label for="后天">后天</label>
+      <button name="" class="confirm-panel">确认</button>
+    </div>
+    <div class="tag options" data-status="closed">
+      <input type="checkbox" name="" value="" id="穷游">
+      <label for="穷游">穷游</label>
+      <input type="checkbox" name="" value="" id="经济">
+      <label for="经济">经济</label>
+      <input type="checkbox" name="" value="" id="土豪">
+      <label for="土豪">土豪</label>
+      <button name="" class="confirm-panel">确认</button>
+    </div>
+    <script type="text/javascript">
+      // 获取黑幕
+      const mask = document.getElementById('mask')
+      // 为黑幕绑定事件：点击时，所有弹框和黑幕同时消失
+      mask.onclick = () => {
+        mask.style.display = 'none'
+        for (panel of document.querySelectorAll('.options')) {
+          panel.setAttribute('data-status', 'closed')
+        }
+      }
+      // 创建弹框类：用弹框的data-status属性控制其显隐，用黑幕的style属性控制其显隐
+      class OptionButton {
+        constructor (optionName) {
+          this.button = document.getElementsByName(optionName)[0]
+          this.panel = document.getElementsByClassName(optionName)[0]
+          this.button.onclick = () => { this.open() }
+        }
+        open () {
+          mask.style.display = 'block'
+          this.panel.setAttribute('data-status', 'open')
+        }
+      }
+      // 新建三个弹框实例
+      let destination = new OptionButton('destination')
+      let departureTime = new OptionButton('departure-time')
+      let tag = new OptionButton('tag')
+    </script>
+  </body>
+  </html>
